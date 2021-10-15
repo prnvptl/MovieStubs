@@ -15,7 +15,6 @@ import com.example.moviestubs.databinding.MovieListFragmentBinding
 
 class MovieListFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +25,7 @@ class MovieListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         model.movies.observe(this, { movies ->
-            adapter.data = movies
+            adapter.submitList(movies)
         })
         return binding.root
     }
