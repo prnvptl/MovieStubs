@@ -1,7 +1,10 @@
 package com.example.moviestubs.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Movie(
     @SerializedName("Id")
     val id: Int,
@@ -26,7 +29,7 @@ data class Movie(
 
     @SerializedName("Actors")
     val actors: Array<String>,
-) {
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

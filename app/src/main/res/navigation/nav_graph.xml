@@ -9,5 +9,18 @@
         android:id="@+id/movieListFragment"
         android:name="com.example.moviestubs.ui.movies.MovieListFragment"
         android:label="movie_list_fragment"
-        tools:layout="@layout/movie_list_fragment" />
+        tools:layout="@layout/movie_list_fragment" >
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.moviestubs.ui.moviedetail.MovieDetailFragment"
+        android:label="movie_detail_fragment"
+        tools:layout="@layout/movie_detail_fragment" >
+        <argument
+            android:name="selectedMovie"
+            app:argType="com.example.moviestubs.model.Movie" />
+    </fragment>
 </navigation>

@@ -11,9 +11,18 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MovieListViewModel : ViewModel() {
+
     private val _movies = MutableLiveData<List<Movie>>()
+
     val movies : LiveData<List<Movie>>
         get() = _movies
+
+    // Internally, we use a MutableLiveData to handle navigation to the selected property
+    private val _navigateToSelectedProperty = MutableLiveData<Movie?>()
+
+    // The external immutable LiveData for the navigation property
+    val navigateToSelectedProperty: MutableLiveData<Movie?>
+        get() = _navigateToSelectedProperty
 
     init {
         getAllMovies()
@@ -31,4 +40,13 @@ class MovieListViewModel : ViewModel() {
             }
         }
     }
+
+    fun displayMovieDetails(selectedMovie: Movie) {
+        _navigateToSelectedProperty.value = selectedMovie
+    }
+
+    fun displayMovieDetailsComplete() {
+        _navigateToSelectedProperty.value = null
+    }
+
 }

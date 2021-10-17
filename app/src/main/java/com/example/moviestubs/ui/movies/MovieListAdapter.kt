@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviestubs.databinding.MovieListItemBinding
 import com.example.moviestubs.model.Movie
 
-class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.ViewHolder>(MovieDiffCallBack) {
+class MovieListAdapter(private val onClickListener: OnClickListener) : ListAdapter<Movie, MovieListAdapter.ViewHolder>(MovieDiffCallBack) {
 
     class ViewHolder(private val binding: MovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movie) {
@@ -27,6 +27,9 @@ class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.ViewHolder>(MovieDi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item)
+        }
         holder.bind(item)
     }
 
@@ -38,5 +41,9 @@ class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.ViewHolder>(MovieDi
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem == newItem
         }
+    }
+
+    class OnClickListener(private val clickListener: (movie: Movie) -> Unit) {
+        fun onClick(movie: Movie) = clickListener(movie)
     }
 }

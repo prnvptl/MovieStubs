@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.moviestubs.R
+import com.example.moviestubs.databinding.MovieDetailFragmentBinding
+import com.example.moviestubs.databinding.MovieListFragmentBinding
+import com.example.moviestubs.ui.movies.MovieListViewModel
 
 class MovieDetailFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MovieDetailFragment()
-    }
 
     private lateinit var viewModel: MovieDetailViewModel
 
@@ -20,12 +20,12 @@ class MovieDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.movie_detail_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        val binding = MovieDetailFragmentBinding.inflate(inflater)
+        val selectedMovie = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovie
+        val detailViewModelFactory = MovieDetailViewModelFactory(selectedMovie)
+        binding.movieDetailViewModel = ViewModelProvider(this, detailViewModelFactory)
+            .get(MovieDetailViewModel::class.java)
+        binding.movieName.text = selectedMovie.name
+        return binding.root
     }
 }
