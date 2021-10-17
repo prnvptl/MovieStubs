@@ -4,6 +4,7 @@ buildscript {
         version_nav = "2.3.5"
         version_lifecycle = "2.4.0-rc01"
         version_retrofit = "2.9.0"
+        version_glide = "4.11.0"
     }
 
     repositories {

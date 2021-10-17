@@ -16,6 +16,7 @@ class MovieListAdapter(private val onClickListener: OnClickListener) : ListAdapt
                 movieName.text = item.name
                 movieDuration.text = item.duration
                 movieDirector.text = item.director
+                movie = item
             }
         }
     }

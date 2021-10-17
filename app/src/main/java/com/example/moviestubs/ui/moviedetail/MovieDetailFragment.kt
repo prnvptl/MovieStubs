@@ -6,15 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.example.moviestubs.R
 import com.example.moviestubs.databinding.MovieDetailFragmentBinding
-import com.example.moviestubs.databinding.MovieListFragmentBinding
-import com.example.moviestubs.ui.movies.MovieListViewModel
+import android.content.Intent
+import android.net.Uri
+
+private const val ZOC_DOC_BASE_URL = "https://www.zocdoc.com/"
 
 class MovieDetailFragment : Fragment() {
-
-    private lateinit var viewModel: MovieDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +23,16 @@ class MovieDetailFragment : Fragment() {
         val detailViewModelFactory = MovieDetailViewModelFactory(selectedMovie)
         binding.movieDetailViewModel = ViewModelProvider(this, detailViewModelFactory)
             .get(MovieDetailViewModel::class.java)
-        binding.movieName.text = selectedMovie.name
+        binding.apply {
+            movieDetailName.text = selectedMovie.name
+            movieDetailActors.text = selectedMovie.actors.joinToString(", ")
+            movieDetailDuration.text = selectedMovie.duration
+            movieDetailDescription.text = selectedMovie.description
+            buyTicketButton.setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ZOC_DOC_BASE_URL))
+                startActivity(browserIntent)
+            }
+        }
         return binding.root
     }
 }
