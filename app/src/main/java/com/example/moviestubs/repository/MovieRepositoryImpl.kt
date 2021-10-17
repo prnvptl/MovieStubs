@@ -11,10 +11,10 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun getMoviesByRank(startRank: Int, numMovies: Int): List<Movie> {
-        return movieApiService.getMoviesByRank(startIndex = startRank, numMovies = numMovies)
+        return movieApiService.getMoviesByRank(startRank, numMovies)
     }
 
     override suspend fun getMovieDetails(ids: List<Int>): List<Movie> {
-        return movieApiService.getMovieDetails(ids = ids)
+        return movieApiService.getMovieDetails( ids)
     }
 }

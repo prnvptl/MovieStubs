@@ -36,10 +36,10 @@ class MovieListViewModel @Inject constructor(
     private fun getAllMovies() {
         viewModelScope.launch {
             try {
-                val topMovies = movieRepository.getMoviesByRank(startRank = 1, numMovies = 10)
+                val topMovies = movieRepository.getMoviesByRank(1, 10)
                 val ids = topMovies.map { movie -> movie.id }
                 Log.i("MovieListViewModel", "Success " + ids.toString())
-                _movies.value = movieRepository.getMovieDetails(ids = ids)
+                _movies.value = movieRepository.getMovieDetails(ids)
             } catch (e: Exception) {
                 Log.e("MovieListViewModel", "Error fetching All Movies " + e.message.toString())
             }
