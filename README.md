@@ -31,13 +31,13 @@ MovieStubs is an app for users to discover and research movies. In addition, use
 - Retrofit - API HTTP client
 - Gson - serialization/deserialization of Java/Kotlin objects to JSON
 - Glide - image loading & caching
-- Hilt (dagger) - for dependency injection
+- Hilt (dagger) - for dependency injection https://developer.android.com/training/dependency-injection
 - Data & View binding - to reduce UI & layout boilerplate
 
 
 ## References
-- https://developer.android.com/jetpack/guide#recommended-app-arch
-
-- https://developer.android.com/jetpack#architecture-components
-
 - https://developer.android.com/jetpack/guide#common-principles
+- https://developer.android.com/jetpack/guide#overview
+- https://developer.android.com/jetpack/guide#recommended-app-arch
+- https://developer.android.com/training/dependency-injection
+- https://developer.android.com/jetpack#architecture-components

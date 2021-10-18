@@ -4,6 +4,12 @@ import com.example.moviestubs.model.Movie
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * API Interface
+ * [getMovies] - all movies
+ * [getMoviesByRank] - ranked movies
+ * [getMovieDetails] - movie details given ids
+ */
 interface MovieApiService {
     @GET("AllMovies")
     suspend fun getMovies() : List<Movie>

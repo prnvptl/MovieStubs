@@ -28,6 +28,8 @@ class MovieDetailFragment : Fragment() {
             movieDetailActors.text = selectedMovie.actors.joinToString(", ")
             movieDetailDuration.text = selectedMovie.duration
             movieDetailDescription.text = selectedMovie.description
+            // Navigates just to the zocdoc home website for now
+            // TODO: Implement actual functionality
             buyTicketButton.setOnClickListener {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ZOC_DOC_BASE_URL))
                 startActivity(browserIntent)

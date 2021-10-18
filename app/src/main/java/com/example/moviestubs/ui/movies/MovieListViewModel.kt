@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviestubs.model.Movie
 import com.example.moviestubs.repository.MovieFilter
 import com.example.moviestubs.repository.MovieRepositoryImpl
@@ -13,20 +14,23 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
+/**
+ * ViewModel with the constructor to include [MovieRepositoryImpl]
+ */
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
     private val movieRepository: MovieRepositoryImpl
 ) : ViewModel() {
 
+    // Internally, we use a MutableLiveData to store movies
     private val _movies = MutableLiveData<List<Movie>>()
 
+    // The external immutable LiveData to be used
     val movies : LiveData<List<Movie>>
         get() = _movies
 
-    // Internally, we use a MutableLiveData to handle navigation to the selected property
     private val _navigateToSelectedProperty = MutableLiveData<Movie?>()
 
-    // The external immutable LiveData for the navigation property
     val navigateToSelectedProperty: MutableLiveData<Movie?>
         get() = _navigateToSelectedProperty
 

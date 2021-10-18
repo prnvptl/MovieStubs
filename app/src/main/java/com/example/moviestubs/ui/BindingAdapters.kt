@@ -27,6 +27,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Movie>?) {
 @BindingAdapter("imageUrlId")
 fun bindImage(imgView: ImageView, imageUrlId: Int?) {
     imageUrlId?.let {
+        // Adding temp user-agent because the placeholder.com returning an error otherwise
         val url = GlideUrl(
             "https://via.placeholder.com/3500x3500.png?text=MovieId:$imageUrlId", LazyHeaders.Builder()
                 .addHeader("User-Agent", "your-user-agent")
