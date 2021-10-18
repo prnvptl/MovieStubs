@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviestubs.model.Movie
+import com.example.moviestubs.repository.MovieFilter
 import com.example.moviestubs.repository.MovieRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,16 +31,28 @@ class MovieListViewModel @Inject constructor(
         get() = _navigateToSelectedProperty
 
     init {
-        getAllMovies()
+        getTopMovies()
+    }
+
+    private fun getTopMovies() {
+        viewModelScope.launch {
+            try {
+                val topMovies = movieRepository.getMoviesByRank(1, 10)
+                val ids = topMovies.map { movie -> movie.id }
+                Log.i("MovieListViewModel", "Success: All movies $topMovies")
+                _movies.value = movieRepository.getMovieDetails(ids)
+            } catch (e: Exception) {
+                Log.e("MovieListViewModel", "Error fetching All Movies " + e.message.toString())
+            }
+        }
     }
 
     private fun getAllMovies() {
         viewModelScope.launch {
             try {
-                val topMovies = movieRepository.getMoviesByRank(1, 10)
-                val ids = topMovies.map { movie -> movie.id }
-                Log.i("MovieListViewModel", "Success " + ids.toString())
-                _movies.value = movieRepository.getMovieDetails(ids)
+                val allMovies = movieRepository.getMovies()
+                Log.i("MovieListViewModel", "Success: Top Movies $allMovies")
+                _movies.value = allMovies
             } catch (e: Exception) {
                 Log.e("MovieListViewModel", "Error fetching All Movies " + e.message.toString())
             }
@@ -54,4 +67,10 @@ class MovieListViewModel @Inject constructor(
         _navigateToSelectedProperty.value = null
     }
 
+    fun updateFilter(filter: MovieFilter) {
+        when(filter) {
+            MovieFilter.TOP_10 -> getTopMovies()
+            MovieFilter.SHOW_ALL -> getAllMovies()
+        }
+    }
 }
